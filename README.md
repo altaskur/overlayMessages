@@ -1,6 +1,5 @@
 
-<img src="https://img.shields.io/github/license/altaskur/overlayMessages?style=for-the-badge">
-<img src="https://img.shields.io/github/languages/top/altaskur/overlayMessages?style=for-the-badge">
+<img src="https://img.shields.io/github/license/altaskur/overlayMessages?style=for-the-badge"> <img src="https://img.shields.io/github/languages/top/altaskur/overlayMessages?style=for-the-badge">
 
 # Overlay Messages
 
