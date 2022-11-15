@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
-const config_1 = require("./../tmi/config");
+const config_1 = require("../tmi/config");
 const express_1 = __importDefault(require("express"));
 const functions_1 = require("./functions");
 exports.app = (0, express_1.default)();
-exports.app.use('/', express_1.default.static('./src/server/public'));
+exports.app.use('/', express_1.default.static('./frontend/'));
 exports.app.get('/sse', (req, res) => {
     const headers = {
         'Content-Type': 'text/event-stream',
@@ -24,11 +24,16 @@ exports.app.get('/sse', (req, res) => {
     });
     config_1.client.on('message', (channel, tags, message, self) => {
         const data = {
+            mod: tags.mod,
+            vip: tags.vip,
+            subscriber: tags.subscriber,
+            emoteOnly: tags.emoteOnly,
+            messageType: tags['message-type'],
+            color: tags.color,
+            badges: tags.badges,
             nickName: tags['display-name'],
             message,
-            tags,
-            color: tags.color,
-            badges: tags.badges
+            tags: {}
         };
         (0, functions_1.sendSSE)(res, data);
     });

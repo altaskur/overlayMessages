@@ -1,18 +1,23 @@
-import { client, channelName } from './../tmi/config'
+import { client, channelName } from '../tmi/config'
 
 import express, { Response, Request } from 'express'
 import { sendSSE } from './functions'
 
 export interface MessageData {
+  mod?: boolean
+  vip?: boolean
+  subscriber?: boolean
+  emoteOnly?: boolean
+  messageType?: string
+  color?: string
+  badges?: {}
   nickName?: string
   message: string
   tags?: {}
-  color?: string
-  badges?: {}
 }
 export const app = express()
 
-app.use('/', express.static('./src/server/public'))
+app.use('/', express.static('./frontend/'))
 
 app.get('/sse', (req: Request, res: Response) => {
   const headers = {
@@ -33,11 +38,16 @@ app.get('/sse', (req: Request, res: Response) => {
 
   client.on('message', (channel, tags, message, self) => {
     const data: MessageData = {
+      mod: tags.mod,
+      vip: tags.vip,
+      subscriber: tags.subscriber,
+      emoteOnly: tags.emoteOnly,
+      messageType: tags['message-type'],
+      color: tags.color,
+      badges: tags.badges,
       nickName: tags['display-name'],
       message,
-      tags,
-      color: tags.color,
-      badges: tags.badges
+      tags: {}
     }
 
     sendSSE(res, data)

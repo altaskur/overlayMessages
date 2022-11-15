@@ -1,19 +1,22 @@
+import parseBadges from './functions'
+
 const SSE = new EventSource('http://localhost:5173/sse')
 SSE.onmessage = (event) => {
-  console.log('Evento: ', event)
   parseMessage(event)
 }
-function parseMessage (event: MessageEvent<any>) {
+
+function parseMessage (event: MessageEvent<any>): void {
   const div: HTMLDivElement | null = document.querySelector('div')
   if (div != null) {
     const data = JSON.parse(event.data)
-    console.log('Data: ', data)
 
     if (typeof data === 'string') {
       div.innerHTML = data
     } else {
+      parseBadges(data.badge)
       const badges = document.createElement('div')
       badges.classList.add('badges')
+      badges.textContent = data.badges
 
       const nickName = document.createElement('span')
       nickName.classList.add('nickName')

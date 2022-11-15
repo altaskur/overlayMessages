@@ -2,7 +2,8 @@
   "name": "overlaymessages",
   "version": "0.1.0",
   "description": "Proyecto para practicar SSE, mostrando los mensajes del canal en una web.",
-  "main": "src/main.js",
+  "main": "./src/main.js",
+  
   "scripts": {
     "dev": "nodemon main.js",
     "start": "node main.js",
