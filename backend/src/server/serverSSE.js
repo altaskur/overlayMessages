@@ -8,12 +8,13 @@ const config_1 = require("../tmi/config");
 const express_1 = __importDefault(require("express"));
 const functions_1 = require("./functions");
 exports.app = (0, express_1.default)();
-exports.app.use('/', express_1.default.static('./frontend/'));
+// app.use('/', express.static('../../../frontend/index.html'))
 exports.app.get('/sse', (req, res) => {
     const headers = {
         'Content-Type': 'text/event-stream',
         Connection: 'keep-alive',
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache',
+        'Access-Control-Allow-Origin': '*'
     };
     res.writeHead(200, headers);
     config_1.client.on('connecting', () => {
@@ -23,6 +24,7 @@ exports.app.get('/sse', (req, res) => {
         (0, functions_1.sendSSE)(res, `Connected to ${config_1.channelName}'s chat`);
     });
     config_1.client.on('message', (channel, tags, message, self) => {
+        tags.color = tags.color === null ? '#b448d3' : tags.color;
         const data = {
             mod: tags.mod,
             vip: tags.vip,

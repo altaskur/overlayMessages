@@ -11,8 +11,9 @@ function parseBadges(badges) {
         subscriber: assetsPath + 'subscriber.png',
         verified: assetsPath + 'verified.png'
     };
+    console.log("TEST: ", badges);
     for (const badge in badges) {
-        console.log(badge);
+        console.log("TEST ", badge);
     }
 }
 exports.default = parseBadges;

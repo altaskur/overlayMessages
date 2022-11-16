@@ -17,13 +17,14 @@ export interface MessageData {
 }
 export const app = express()
 
-app.use('/', express.static('./frontend/'))
+// app.use('/', express.static('../../../frontend/index.html'))
 
 app.get('/sse', (req: Request, res: Response) => {
   const headers = {
     'Content-Type': 'text/event-stream',
     Connection: 'keep-alive',
-    'Cache-Control': 'no-cache'
+    'Cache-Control': 'no-cache',
+    'Access-Control-Allow-Origin': '*'
   }
 
   res.writeHead(200, headers)
@@ -37,6 +38,8 @@ app.get('/sse', (req: Request, res: Response) => {
   })
 
   client.on('message', (channel, tags, message, self) => {
+    tags.color = tags.color === null ? '#b448d3' : tags.color
+
     const data: MessageData = {
       mod: tags.mod,
       vip: tags.vip,

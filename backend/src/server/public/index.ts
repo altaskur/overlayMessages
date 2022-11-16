@@ -14,6 +14,8 @@ function parseMessage (event: MessageEvent<any>): void {
       div.innerHTML = data
     } else {
       parseBadges(data.badge)
+
+
       const badges = document.createElement('div')
       badges.classList.add('badges')
       badges.textContent = data.badges
