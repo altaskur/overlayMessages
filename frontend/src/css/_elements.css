@@ -2,3 +2,8 @@
     display: inline-block;
 }
 
+#app .app-item{
+    background-color: var(--background-app-color);
+    margin: 2vw 0px;
+    padding: 3vw;
+}

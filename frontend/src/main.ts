@@ -1,4 +1,5 @@
-import parseBadges from './functions'
+import { createBadges } from "./functions/badges/badges"
+import { normalizeColor } from "./functions/functions"
 
 const SSE = new EventSource('http://localhost:5174/sse')
 SSE.onmessage = (event) => {
@@ -19,12 +20,13 @@ function parseMessage (event: MessageEvent<any>): void {
       const badges = document.createElement('div')
       badges.classList.add('badges')
 
-      badges.appendChild(parseBadges(data.badges))
+      badges.appendChild(createBadges(data.badges))
 
       const nickName = document.createElement('span')
       nickName.classList.add('nickName')
 
       console.log("color: ",data.color)
+      data.color = normalizeColor(data.color)
       nickName.style.color = data.color
       nickName.textContent = data.nickName
 
