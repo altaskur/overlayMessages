@@ -1,5 +1,5 @@
-import { createBadges } from "./functions/badges/badges"
-import { clearMessages, normalizeColor } from "./functions/functions"
+import { createBadges } from './functions/badges/badges'
+import { clearMessages, normalizeColor } from './functions/functions'
 
 const SSE = new EventSource('http://localhost:5174/sse')
 SSE.onmessage = (event) => {
@@ -7,18 +7,17 @@ SSE.onmessage = (event) => {
 }
 
 function parseMessage (event: MessageEvent<any>): void {
-  clearMessages();
+  clearMessages()
   const div: HTMLDivElement | null = document.querySelector('div')
   const appItemDiv = document.createElement('div')
-  appItemDiv.classList.add("app-item")
-  appItemDiv.classList.add("fadeIn")
+  appItemDiv.classList.add('app-item')
+  appItemDiv.classList.add('fadeIn')
 
   if (div != null) {
     const data = JSON.parse(event.data)
     if (typeof data === 'string') {
       div.innerHTML = data
     } else {
-
       const badges = document.createElement('div')
       badges.classList.add('badges')
 
@@ -27,7 +26,7 @@ function parseMessage (event: MessageEvent<any>): void {
       const nickName = document.createElement('span')
       nickName.classList.add('nickName')
 
-      console.log("color: ",data.color)
+      console.log('color: ', data.color)
       data.color = normalizeColor(data.color)
       nickName.style.color = data.color
       nickName.textContent = data.nickName
