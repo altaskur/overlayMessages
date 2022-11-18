@@ -1,13 +1,15 @@
-#app .app-item{
-    animation: fadeIn 2s ease 0s ;
+.fadeOut {
+  animation: fadeOut 2s ease 0s;
 }
-
+.fadeIn{
+  animation: fadeIn 2s ease 0s ;
+}
 @keyframes fadeIn {
-    from {  transform: translateX(100vw) }  /* Primer fotograma */
+    from { transform: translateX(100vw) }  /* Primer fotograma */
     to { transform: translateX(0vw); }  /* Segundo y último fotograma */
   }
 
   @keyframes fadeOut {
-    from {  transform: translateX(0vw) }  /* Primer fotograma */
+    from { transform: translateX(0vw) }  /* Primer fotograma */
     to { transform: translateX(105vw); }  /* Segundo y último fotograma */
   }

@@ -1,3 +1,20 @@
+
+interface BadgesTypes{
+  founder : string,
+  bits : string,
+  gift : string,
+  broadcaster : string,
+  moderator : string,
+  premium : string,
+  subscriber : string,
+  partner : string,
+  glhfpledge : string,
+  vip : string,
+  no_video : string,
+  no_audio : string,
+  glitchcon2020 : string,
+}
+
 function standardizedBadge(badge: string): string{
     badge = badge.replaceAll("-","")
     console.log(badge)
@@ -9,7 +26,8 @@ function standardizedBadge(badge: string): string{
 
 export function createBadges (badges: []):Node {
     const assetsPath = '/assets/img/badges/'
-    const badgesTypes: {} = {
+
+    const BADGES_TYPES: BadgesTypes = {
       founder: assetsPath + 'founder.png',
       bits: assetsPath + 'bits.png',
       gift: assetsPath + 'gift.png',
@@ -30,8 +48,12 @@ export function createBadges (badges: []):Node {
 
     for (let badge in badges) {
       badge = standardizedBadge(badge)
+      console.log(badge)
       const imgBadge = document.createElement("img");
-      imgBadge.src = badgesTypes[badge]; //! todo
+      //! error altas mira porque esto no funca 😄
+      let objects = Object.keys(BADGES_TYPES).find((key) => key == badge );
+      badge = objects == undefined ? "undefined" : objects;
+      imgBadge.src = badge
       badgesDiv.appendChild(imgBadge)
     }
     return badgesDiv

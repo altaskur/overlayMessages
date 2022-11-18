@@ -1,5 +1,5 @@
 import { createBadges } from "./functions/badges/badges"
-import { normalizeColor } from "./functions/functions"
+import { clearMessages, normalizeColor } from "./functions/functions"
 
 const SSE = new EventSource('http://localhost:5174/sse')
 SSE.onmessage = (event) => {
@@ -7,9 +7,11 @@ SSE.onmessage = (event) => {
 }
 
 function parseMessage (event: MessageEvent<any>): void {
+  clearMessages();
   const div: HTMLDivElement | null = document.querySelector('div')
   const appItemDiv = document.createElement('div')
   appItemDiv.classList.add("app-item")
+  appItemDiv.classList.add("fadeIn")
 
   if (div != null) {
     const data = JSON.parse(event.data)

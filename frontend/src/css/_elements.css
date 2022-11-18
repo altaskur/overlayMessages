@@ -2,6 +2,13 @@
     display: inline-block;
 }
 
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100vh;
+}
+
 #app .app-item{
     background-color: var(--background-app-color);
     margin: 2vw 0px;
