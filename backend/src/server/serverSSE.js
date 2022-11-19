@@ -10,6 +10,7 @@ const functions_1 = require("./functions");
 exports.app = (0, express_1.default)();
 // app.use('/', express.static('../../../frontend/index.html'))
 exports.app.get('/sse', (req, res) => {
+    var _a;
     const headers = {
         'Content-Type': 'text/event-stream',
         Connection: 'keep-alive',
@@ -23,6 +24,16 @@ exports.app.get('/sse', (req, res) => {
     config_1.client.on('connected', () => {
         (0, functions_1.sendSSE)(res, `Connected to ${config_1.channelName}'s chat`);
     });
+    (_a = res.socket) === null || _a === void 0 ? void 0 : _a.on('end', (e) => {
+        console.log('event source closed');
+        res.end();
+    });
+    // res.on('close', () => {
+    //   console.log(' Close connection .. ... ...')
+    //   res.end()
+    //   // Ver como cerrar tmi
+    //   client.disconnect()
+    // })
     config_1.client.on('message', (channel, tags, message, self) => {
         tags.color = tags.color === null ? '#b448d3' : tags.color;
         const data = {
@@ -39,4 +50,7 @@ exports.app.get('/sse', (req, res) => {
         };
         (0, functions_1.sendSSE)(res, data);
     });
+    // setInterval(() => {
+    //   sendSSE(res, 'Mensaje random')
+    // }, 1000)
 });

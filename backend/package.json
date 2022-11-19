@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon main.js",
     "start": "node main.js",
-    "tscw": "tsc -w"
+    "tscw": "tsc -w",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",

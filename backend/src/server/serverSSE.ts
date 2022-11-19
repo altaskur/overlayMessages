@@ -37,6 +37,18 @@ app.get('/sse', (req: Request, res: Response) => {
     sendSSE(res, `Connected to ${channelName}'s chat`)
   })
 
+  res.socket?.on('end', (e: string) => {
+    console.log('event source closed')
+    res.end()
+  })
+
+  // res.on('close', () => {
+  //   console.log(' Close connection .. ... ...')
+  //   res.end()
+  //   // Ver como cerrar tmi
+  //   client.disconnect()
+  // })
+
   client.on('message', (channel, tags, message, self) => {
     tags.color = tags.color === null ? '#b448d3' : tags.color
 
@@ -55,4 +67,8 @@ app.get('/sse', (req: Request, res: Response) => {
 
     sendSSE(res, data)
   })
+
+  // setInterval(() => {
+  //   sendSSE(res, 'Mensaje random')
+  // }, 1000)
 })
